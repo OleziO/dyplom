@@ -1,0 +1,45 @@
+.infoModal {
+  max-width: 500px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  text-align: left;
+  min-height: 60vh;
+
+  .headerGroup {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+
+    .priceGroup {
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      align-items: center;
+
+      .priceHeader {
+        font-weight: bold;
+      }
+
+      .priceItem {
+        display: flex;
+        flex-direction: column;
+        align-items: start;
+      }
+    }
+  }
+
+  p {
+    font-size: 14px;
+  }
+
+  .buttonGroup {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    margin-top: 40px;
+  }
+}

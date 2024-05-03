@@ -1,0 +1,30 @@
+.mainTable {
+  box-shadow:
+    0 0 20px 0 rgba(0, 0, 0, 0.2),
+    0 5px 5px 0 rgba(0, 0, 0, 0.24);
+  background: hsl(0, 0%, 100%);
+
+  img {
+    width: 40px;
+  }
+
+  a {
+    color: white;
+    text-decoration: none;
+    &:hover {
+      text-decoration: none;
+    }
+  }
+
+  th,
+  td {
+    vertical-align: middle;
+    text-align: center;
+    padding: 20px;
+    white-space: nowrap;
+  }
+
+  td {
+    cursor: pointer;
+  }
+}
