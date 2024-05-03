@@ -2,7 +2,7 @@
   "homepage": ".",
   "name": "dyplom",
   "engines": {
-    "node": "14.x"
+    "node": "14.21.3"
   },
   "version": "0.1.0",
   "private": true,
