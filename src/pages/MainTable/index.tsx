@@ -1,25 +1,32 @@
 import cn from "classnames";
-import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLoaderData } from "react-router-dom";
 import { supabase } from "../../api";
 import { Button } from "../../components/button";
 import { toPicture } from "../../helpers/pictures";
+import { types } from "../../helpers/types";
 import styles from "./styles.module.scss";
 
-export const MainTable = () => {
-  const [products, setproPucts] = useState<any[] | null>([]);
-
-  const fetchProducts = async () => {
+const fetchFilterData = async (name: string) => {
+  if (!types(name)) {
     const { data } = await supabase.from("modelinfo").select();
+    return data;
+  }
 
-    setproPucts(data);
-  };
+  const { data } = await supabase.rpc("get_items_by_type", {
+    type_id: types(name),
+  });
 
-  useEffect(() => {
-    fetchProducts();
-  }, []);
+  return data;
+};
 
-  console.log(products);
+export async function loadFilterData({ params }: any) {
+  const filteredProducts = await fetchFilterData(params.name);
+  return { filteredProducts };
+}
+
+export const MainTable = () => {
+  const productsFetchData: any = useLoaderData();
+  const filteredProducts = productsFetchData.filteredProducts;
 
   return (
     <div className={cn("container")}>
@@ -36,7 +43,7 @@ export const MainTable = () => {
         </thead>
 
         <tbody>
-          {products?.map((item, idx) => {
+          {(filteredProducts as any[])?.map((item, idx) => {
             return (
               <tr key={idx}>
                 <th scope="row">{idx + 1}</th>
@@ -48,7 +55,7 @@ export const MainTable = () => {
                 <td>${item.stock_price}</td>
                 <td>{item.total_items} шт</td>
                 <td>
-                  <Link to={`product/${item.id}`}>
+                  <Link to={`/product/${item.id}`}>
                     <Button type="button">Деталі</Button>
                   </Link>
                 </td>

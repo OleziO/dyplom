@@ -10,13 +10,16 @@ export const Header: React.FC = () => {
       <nav>
         <ul>
           <li>
-            <a>Phones</a>
+            <a href="/">All</a>
           </li>
           <li>
-            <a>Laptops</a>
+            <a href="/smartphones">Phones</a>
           </li>
           <li>
-            <a>Accesoires</a>
+            <a href="/laptops">Laptops</a>
+          </li>
+          <li>
+            <a href="/accessories">Accessories</a>
           </li>
           <li>
             <div className={styles.user}>

@@ -1,5 +1,5 @@
 import React from "react";
-import { RouterProvider } from "react-router-dom";
+import { BrowserRouter, RouterProvider } from "react-router-dom";
 
 import { AuthProvide } from "./helpers/authProvide";
 import { MainApp } from "./pages/main";

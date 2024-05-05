@@ -1,14 +1,20 @@
 .headerContainer {
   width: 100vw;
   background: white;
-  padding: 10px 50px;
+  padding: 20px 50px;
   display: flex;
   justify-content: space-between;
   align-items: center;
 
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+
   nav,
   ul {
     display: flex;
+    margin-bottom: 0;
   }
 
   ul {

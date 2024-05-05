@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useLoaderData } from "react-router-dom";
 import { supabase } from "../../api";
 import { Button } from "../../components/button";
@@ -31,14 +31,33 @@ export async function loadProductData({ params }: any) {
 export const ProductPage = () => {
   const productFetchData: any = useLoaderData();
   const product = productFetchData.product[0];
+  const [isCountOpen, setIsCountOpen] = useState<boolean>(false);
+  const [sellCount, setSellCount] = useState<string | null>(null);
 
-  console.log(product);
+  const uptadeCount = async (id: string, count: number) =>
+    await supabase.rpc("sell_items", {
+      model_id_to_delete: id,
+      count_to_delete: count,
+    });
+
+  useEffect(() => {
+    if (isCountOpen) {
+      setSellCount(window.prompt("Введіть к-сть товарів для продажу: "));
+    }
+  }, [isCountOpen]);
+
+  useEffect(() => {
+    if (sellCount && isCountOpen) {
+      setIsCountOpen(false);
+      uptadeCount(product.id, +(sellCount || 0));
+    }
+  }, [sellCount]);
 
   return (
     <Modal className={styles.infoModal}>
       <div className={styles.infoGroup}>
         <div className={styles.headerGroup}>
-          <h2>{product.name}</h2>
+          <h2>{`${product.manufacturer_name} ${product.name}`}</h2>
           <div className={styles.priceGroup}>
             <span className={styles.priceItem}>
               <span className={styles.priceHeader}>Закупівля</span>
@@ -56,7 +75,13 @@ export const ProductPage = () => {
 
       <div className={styles.buttonGroup}>
         <Button>Закупити</Button>
-        <Button>Продати</Button>
+        <Button
+          onClick={() => {
+            setIsCountOpen(true);
+          }}
+        >
+          Продати
+        </Button>
       </div>
     </Modal>
   );
